@@ -3,4 +3,6 @@ Github: https://github.com/dposs/Faminto.com
 
 Java: 1.8.0 revision 121
 
-Maven: 3.3.9
+Apache Maven: 3.3.9
+
+Apache Tomcat: 8.5.12
