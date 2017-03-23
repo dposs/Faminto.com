@@ -7,4 +7,4 @@ Apache Maven: 3.3.9
 
 Apache Tomcat: 8.5.12
 
-Wildfly: 10.1.0
+JBoss Wildfly: 10.1.0
