@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jstl/core">
+
+	<c:if test="#{empty homeController.page}">
+		<c:set value="restaurantes" target="#{homeController}" property="page" />
+	</c:if>
+
+	<h:head>
+		<title>Faminto.com</title>
+		<style>
+			.ui-widget, .ui-widget .ui-widget {
+				font-size: 90% !important;
+			}
+		</style>
+	</h:head>
+	
+	<h:body>
+		<h:form>
+			<p:menubar id="menu">
+				<p:menuitem value="Votações" actionListener="#{homeController.setPage('votacoes')}" update=":content"/>
+				<p:menuitem value="Restaurantes" actionListener="#{homeController.setPage('restaurantes')}" update=":content"/>
+			</p:menubar>
+			
+			<p:sticky target="menu" />
+		</h:form>
+		
+		<h:panelGroup id="content">
+			<ui:include src="#{homeController.page}.xhtml"/>
+		</h:panelGroup>
+		
+	</h:body>
+</html>

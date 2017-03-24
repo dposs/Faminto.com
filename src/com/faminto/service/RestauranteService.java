@@ -1,15 +1,24 @@
 package com.faminto.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+
 import com.faminto.model.Restaurante;
 
-public class RestauranteService {
+@ManagedBean
+@ApplicationScoped
+public class RestauranteService implements Serializable {
 
+	private static final long serialVersionUID = 9075414646670976304L;
+	
 	private static List<Restaurante> restaurantes;
 	
 	static {
+		restaurantes = new ArrayList<Restaurante>();
 		restaurantes.add(new Restaurante("Dom Filipo"));
 		restaurantes.add(new Restaurante("Trattoria do Sabor"));
 		restaurantes.add(new Restaurante("Botafogo"));
