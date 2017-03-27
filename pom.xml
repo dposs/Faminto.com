@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>faminto.com</groupId>
 	<artifactId>faminto.com</artifactId>
-	<version>0.2.0</version>
+	<version>0.3.0</version>
 	<packaging>war</packaging>
 
 	<dependencies>
@@ -17,6 +17,11 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>6.1.RC2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>delta</artifactId>
+			<version>1.0.10</version>
 		</dependency>
 	</dependencies>
 

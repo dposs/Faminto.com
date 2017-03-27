@@ -2,11 +2,15 @@ package com.faminto.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 
+import com.faminto.dao.RestauranteDao;
 import com.faminto.model.Restaurante;
 
 @ManagedBean
@@ -15,26 +19,48 @@ public class RestauranteService implements Serializable {
 
 	private static final long serialVersionUID = 9075414646670976304L;
 	
-	private static List<Restaurante> restaurantes;
-	
-	static {
-		restaurantes = new ArrayList<Restaurante>();
-		restaurantes.add(new Restaurante("Dom Filipo"));
-		restaurantes.add(new Restaurante("Trattoria do Sabor"));
-		restaurantes.add(new Restaurante("Botafogo"));
-		restaurantes.add(new Restaurante("Sério Pizzas"));
-		restaurantes.add(new Restaurante("Mackenzie"));
-		restaurantes.add(new Restaurante("Vanguarda"));
-		restaurantes.add(new Restaurante("Domenico"));
-		restaurantes.add(new Restaurante("Fino Sabor"));
-		restaurantes.add(new Restaurante("Canta Maria"));
-	}
+	@ManagedProperty("#{restauranteDao}")
+	private RestauranteDao restauranteDao;
 	
 	public void create(Restaurante restaurante) {
-		restaurantes.add(restaurante);
+		restaurante.setId(getNextId());
+		restauranteDao.insert(restaurante);
 	}
 	
-	public List<Restaurante> getAll() {
-		return restaurantes;
+	public void update(Restaurante restaurante) {
+		restauranteDao.update(restaurante);
+	}
+	
+	public void delete(List<Restaurante> restaurantes) {
+		for (Restaurante restaurante : restaurantes) {
+			restauranteDao.delete(restaurante);
+		}
+	}
+	
+	public List<Restaurante> findAll() {
+		return restauranteDao.select();
+	}
+	
+	public void setRestauranteDao(RestauranteDao restauranteDao) {
+		this.restauranteDao = restauranteDao;
+	}
+	
+	private int getNextId() {
+		List<Restaurante> restaurantes = findAll();
+		
+		if (restaurantes.isEmpty()) {
+			return 1;
+		}
+		
+		List<Restaurante> restaurantesSorted = new ArrayList<Restaurante>(restaurantes);
+		
+		Collections.sort(restaurantesSorted, new Comparator<Restaurante>() {
+			@Override
+			public int compare(Restaurante r1, Restaurante r2) {
+				return r1.getId().compareTo(r2.getId());
+			}
+		});
+		
+		return restaurantesSorted.get(restaurantesSorted.size() - 1).getId() + 1;
 	}
 }

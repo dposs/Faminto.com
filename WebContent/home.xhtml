@@ -8,32 +8,91 @@
 	xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jstl/core">
 
-	<c:if test="#{empty homeController.page}">
-		<c:set value="restaurantes" target="#{homeController}" property="page" />
-	</c:if>
-
 	<h:head>
 		<title>Faminto.com</title>
 		<style>
 			.ui-widget, .ui-widget .ui-widget {
 				font-size: 90% !important;
 			}
+			
+			.ui-dialog .ui-dialog-titlebar {
+				padding: 0;
+				margin: 10px 20px 5px 12px;
+			}
+			
+			.ui-dialog .ui-dialog-title {
+				font-size: 14px !important;
+			}
+			
+			.ui-dialog .ui-dialog-content {
+			    padding: 0px;
+			}
+			
+			.ui-datatable-tablewrapper {
+			    overflow: hidden;
+			}
+
+			body {
+				color: #373737;
+				font: 16px arial;
+				line-height: 1;
+				background: url("resources/images/background.jpg");
+			}
+			
+			#title {
+			    background-color: rgba(255,255,255,0.9);
+			    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.3);
+			    padding-left: 15px;
+			    color: #666;
+			    font-size: 12px;
+			    line-height: 35px;
+			    border-bottom: 1px solid rgb(213, 213, 213);
+			    border-radius: 4px;
+			}
+			
+			#root {
+				margin: 0 auto;
+				position: relative;
+				width: 1008px;
+				border-radius: 4px;
+			}
+			
+			#container {
+				background-color: rgba(255, 255, 255, 0.8);
+				border-radius: 4px;
+				margin :auto;
+				width: 100%;
+				color: #000000;
+				font-family: Verdana,Arial,sans-serif;
+				font-size: 10pt;
+			}
 		</style>
 	</h:head>
 	
 	<h:body>
-		<h:form>
-			<p:menubar id="menu">
-				<p:menuitem value="Votações" icon="ui-icon-comment" actionListener="#{homeController.setPage('votacoes')}" update=":content"/>
-				<p:menuitem value="Restaurantes" icon="ui-icon-home" actionListener="#{homeController.setPage('restaurantes')}" update=":content"/>
-			</p:menubar>
-			
-			<p:sticky target="menu" />
-		</h:form>
-		
-		<h:panelGroup id="content">
-			<ui:include src="#{homeController.page}.xhtml"/>
-		</h:panelGroup>
-		
+		<div id="root">
+			<div id="container">
+		        <h:form>
+					<p:menubar id="menu" style="box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3)">
+						<p:menuitem value="Votações" icon="ui-icon-comment" actionListener="#{homeController.setPage('VOTACOES')}" update=":content"/>
+						<p:menuitem value="Restaurantes" icon="ui-icon-home" actionListener="#{homeController.setPage('RESTAURANTES')}" update=":content"/>
+						<p:menuitem value="Usuários" icon="ui-icon-person" actionListener="#{homeController.setPage('USUARIOS')}" update=":content"/>
+						<f:facet name="options">
+				            <h:outputText value="Seja bem vindo, " style="line-height: 26px; color: gray"/>
+				            <h:outputText value="#{homeController.getUsuarioLogado().nome}" style="line-height: 26px; color: gray; font-weight: 600; margin-right: 10px"/>
+				            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink"/>
+				        </f:facet>
+					</p:menubar>
+					
+					<p:sticky target="menu" />
+				</h:form>
+				
+				<h:panelGroup id="content">
+					<div style="padding: 0px 8px 8px 8px;">
+						<ui:include src="#{homeController.page.name}.xhtml"/>
+					</div>
+				</h:panelGroup>
+			</div>
+		</div>
 	</h:body>
 </html>

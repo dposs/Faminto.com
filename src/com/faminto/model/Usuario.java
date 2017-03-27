@@ -7,19 +7,23 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class Restaurante implements Serializable {
+public class Usuario implements Serializable {
 
-	private static final long serialVersionUID = -5653590408117641620L;
+	private static final long serialVersionUID = -131871017284830121L;
 	
 	private Integer id;
 	private String nome;
+	private String login;
+	private String senha;
 
-	public Restaurante() {
+	public Usuario() {
 	}
 	
-	public Restaurante(int id, String nome) {
+	public Usuario(int id, String nome, String login, String senha) {
 		this.id = id;
 		this.nome = nome;
+		this.login = login;
+		this.senha = senha;
 	}
 	
 	public Integer getId() {
@@ -37,6 +41,22 @@ public class Restaurante implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,13 +68,13 @@ public class Restaurante implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		
-		Restaurante restaurante = (Restaurante) obj;
+		Usuario usuario = (Usuario) obj;
 		
 		if (id == null) {
-			if (restaurante.id != null) {
+			if (usuario.id != null) {
 				return false;
 			}
-		} else if (!id.equals(restaurante.id)) {
+		} else if (!id.equals(usuario.id)) {
 			return false;
 		}
 		
