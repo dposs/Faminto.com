@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+	
+	<ui:composition>
+	
+		<script type="text/javascript">
+			function showDialog(dialogName) {
+				PrimeFaces.widgets[dialogName].show();
+			}
+			function hideDialog(dialogName) {
+				PrimeFaces.widgets[dialogName].hide();
+			}
+		</script>
+	
+		<br/>
+		
+		<h:form id="formActionMenu">
+			<div id="buttons">
+				<p:commandButton id="btnCriar" value="Criar" type="submit" icon="ui-icon-plusthick" onclick="showDialog('dlgVotacao')" update="frmVotacao" style="margin-right: 5px;">
+					<f:actionListener binding="#{votacaoController.mountVotacao()}"/>
+				</p:commandButton>
+				<p:commandButton id="btnExcluir" value="Excluir" type="submit" icon="ui-icon-closethick" action="#{votacaoController.deleteSelectedVotacoes}" update="frmVotacoes:dtVotacoes @this" disabled="#{not votacaoController.isExcluirEnabled()}"/>
+			</div>
+			<div id="title">
+				Votações
+			</div>
+		</h:form>
+		
+		<br/>
+		
+		<p:dialog widgetVar="dlgVotacao" showHeader="false" draggable="false" resizable="false" modal="true" closable="false" width="300px">
+		   <h:form id="frmVotacao">
+		    	<p:panel id="panelVotacao" header="#{votacaoController.getVotacaoAction() == 'CREATE' ? 'Criar Votação' : 'Editar Votação'}">
+			        <h:panelGrid columns="2" cellpadding="5">
+			            <h:outputLabel for="data" value="Data:" />
+			            <p:calendar id="data" value="#{votacaoController.votacao.data}" mode="inline" />
+		    			<h:outputLabel for="realizador" value="Realizador:" />
+		    			<p:inputText id="realizador" required="true" value="#{votacaoController.votacao.realizador.nome}" style="width: 185px;" disabled="true"/>
+			        </h:panelGrid>
+			        <div style="text-align: right; margin-top: 5px">
+				    	<p:commandButton value="Salvar" type="submit" icon="ui-icon-check" action="#{votacaoController.saveVotacao()}" update="frmVotacoes:dtVotacoes" onclick="hideDialog('dlgVotacao');"/>
+				    	<p:commandButton value="Fechar" type="button" icon="ui-icon-closethick" onclick="hideDialog('dlgVotacao');"/>
+			    	</div>
+			    </p:panel>
+		    </h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dlgResultado" showHeader="false" draggable="false" resizable="false" modal="true" closable="false" width="300px">
+		   <h:form id="frmResultado">
+		    	<p:panel id="panelResultado" header="Resultado">
+			        <p:dataTable id="dtResultado" 
+						var="resultado" 
+						value="#{votacaoController.getResultado()}"
+						style="font-size: 12px !important"
+						emptyMessage="Não há Votos.">
+					    <p:column headerText="Restaurante" style="text-align: left">
+							<h:outputText value="#{resultado.key.nome}" />
+					    </p:column>
+					    <p:column headerText="Votos" style="text-align: center">
+							<h:outputText value="#{resultado.value}" />
+					    </p:column>
+					</p:dataTable>
+			        <div style="text-align: right; margin-top: 5px">
+				    	<p:commandButton value="Fechar" type="button" icon="ui-icon-closethick" onclick="hideDialog('dlgResultado');"/>
+			    	</div>
+			    </p:panel>
+		    </h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dlgVoto" showHeader="false" draggable="false" resizable="false" modal="true" closable="false" width="300px">
+		   <h:form id="frmVoto">
+		    	<p:panel id="panelVoto" header="#{votacaoController.getVotoAction() == 'CREATE' ? 'Votar' : 'Editar Voto'}">
+			        <h:panelGrid columns="2" cellpadding="5">
+		    			<h:outputLabel for="restaurante" value="Restaurante:" />
+		    			<p:selectOneMenu id="restaurante" value="#{votacaoController.voto.restaurante}" converter="#{restauranteConverter}" filter="true" filterMatchMode="contains" style="width:125px">
+		    				<f:selectItem itemLabel="Selecione" itemValue="" />
+				            <f:selectItems value="#{votacaoController.restaurantes}" var="r" itemLabel="#{r.nome}" itemValue="#{r}"/>
+				        </p:selectOneMenu>
+			        </h:panelGrid>
+			        <div style="text-align: right; margin-top: 5px">
+				    	<p:commandButton value="Salvar" type="submit" icon="ui-icon-check" action="#{votacaoController.saveVoto()}" update="frmVotacoes:dtVotacoes" onclick="hideDialog('dlgVoto');"/>
+				    	<p:commandButton value="Fechar" type="button" icon="ui-icon-closethick" onclick="hideDialog('dlgVoto');"/>
+			    	</div>
+			    </p:panel>
+		    </h:form>
+		</p:dialog>
+	
+		<h:form id="frmVotacoes">
+			<p:dataTable id="dtVotacoes" 
+				var="votacao" 
+				value="#{votacaoController.votacoes}" 
+				selection="#{votacaoController.selectedVotacoes}" 
+				rowKey="#{votacao.id}"
+				rows="25"
+				paginator="true"
+				paginatorPosition="bottom"
+				emptyMessage="Nenhuma votação localizada.">
+				
+				<p:ajax event="toggleSelect" update=":formActionMenu:btnExcluir"/>
+				<p:ajax event="rowSelectCheckbox" update=":formActionMenu:btnExcluir"/>
+        		<p:ajax event="rowUnselectCheckbox" update=":formActionMenu:btnExcluir" />
+	        	
+	        	<p:column selectionMode="multiple" style="width: 16px; text-align: center"/>
+			    <p:column headerText="Data" style="text-align: left; line-height: 25px; border-right-width: 0px">
+			    	<h:outputText value="#{votacao.data}" >
+			    		<f:convertDateTime pattern="dd/MM/yyyy" />
+			    	</h:outputText>
+			    </p:column>
+			    <p:column headerText="Realizador" style="text-align: left; border-left-width: 0px; border-right-width: 0px">
+					<h:outputText value="#{votacao.realizador.nome}" />
+			    </p:column>
+			    <p:column width="275" style="text-align: center; border-left-width: 0px">
+					<p:commandButton value="Votar" type="submit" icon="ui-icon-comment" onclick="showDialog('dlgVoto')" update="frmVoto" style="margin-right: 5px;">
+						<f:actionListener binding="#{votacaoController.setVotacao(votacao)}"/>
+						<f:actionListener binding="#{votacaoController.setVoto()}"/>
+					</p:commandButton>
+					<p:commandButton value="Editar" type="submit" icon="ui-icon-pencil" onclick="showDialog('dlgVotacao')" update="frmVotacao" style="margin-right: 5px;">
+						<f:actionListener binding="#{votacaoController.setVotacao(votacao)}"/>
+					</p:commandButton>
+					<p:commandButton value="Resultado" type="submit" icon="ui-icon-clipboard" onclick="showDialog('dlgResultado')" update="frmResultado" style="margin-right: 5px;">
+						<f:actionListener binding="#{votacaoController.setVotacao(votacao)}"/>
+					</p:commandButton>
+			    </p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:composition>
+</html>

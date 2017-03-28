@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jstl/core">
+
+	<h:head>
+		<title>Faminto.com</title>
+		<style>
+			.ui-widget, .ui-widget .ui-widget {
+				font-size: 90% !important;
+			}
+			
+			.ui-dialog .ui-dialog-titlebar {
+				padding: 0;
+				margin: 10px 20px 5px 12px;
+			}
+			
+			.ui-dialog .ui-dialog-title {
+				font-size: 14px !important;
+			}
+			
+			.ui-dialog .ui-dialog-content {
+			    padding: 0px;
+			}
+			
+			.ui-datatable-tablewrapper {
+			    overflow: hidden;
+			}
+			
+			.ui-datatable .ui-datatable-header,.ui-datatable .ui-datatable-footer {
+				text-align: left;
+			}
+			
+			.ui-widget-header {
+				color: gray;
+			}
+
+			body {
+				color: #373737;
+				font: 16px arial;
+				line-height: 1;
+				background: url("resources/images/background.jpg");
+			}
+			
+			#buttons {
+				text-align: left;
+				width: 170px;
+				display: inline-block;
+			}
+			
+			#title {
+			    text-align: right;
+			    width: 810px;
+			    float: right;
+			    line-height: 22px;
+			    font-size: 18px;
+			    color: #999;
+			    font-weight: 600;
+			    margin-right: 10px;
+			}
+			
+			#root {
+				margin: 0 auto;
+				position: relative;
+				width: 1008px;
+				border-radius: 4px;
+			}
+			
+			#container {
+				background-color: rgba(255, 255, 255, 0.8);
+				border-radius: 4px;
+				margin :auto;
+				width: 100%;
+				color: #000000;
+				font-family: Verdana,Arial,sans-serif;
+				font-size: 10pt;
+			}
+		</style>
+	</h:head>
+	
+	<h:body>
+		<div id="root">
+			<div id="container">
+		        <h:form>
+					<p:menubar id="menu" style="box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3)">
+						<p:menuitem value="Votações" icon="ui-icon-comment" actionListener="#{homeController.setPage('VOTACOES')}" update=":content"/>
+						<p:menuitem value="Restaurantes" icon="ui-icon-home" actionListener="#{homeController.setPage('RESTAURANTES')}" update=":content"/>
+						<p:menuitem value="Usuários" icon="ui-icon-person" actionListener="#{homeController.setPage('USUARIOS')}" update=":content"/>
+						<f:facet name="options">
+				            <h:outputText value="Seja bem vindo, " style="line-height: 26px; color: gray"/>
+				            <h:outputText value="#{homeController.getUsuarioLogado().nome}" style="line-height: 26px; color: gray; font-weight: 600; margin-right: 15px"/>
+				            <p:commandButton type="button" value="Logout" icon="ui-icon-power"/>
+				        </f:facet>
+					</p:menubar>
+					
+					<p:sticky target="menu" />
+				</h:form>
+				
+				<h:panelGroup id="content">
+					<div style="padding: 0px 8px 8px 8px;">
+						<ui:include src="#{homeController.page.name}.xhtml"/>
+					</div>
+				</h:panelGroup>
+			</div>
+		</div>
+	</h:body>
+</html>

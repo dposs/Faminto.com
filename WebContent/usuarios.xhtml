@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+	
+	<ui:composition>
+	
+		<script type="text/javascript">
+			function showDialog() {
+				PrimeFaces.widgets['dlgUsuario'].show();
+			}
+			function hideDialog() {
+				PrimeFaces.widgets['dlgUsuario'].hide();
+			}
+		</script>
+	
+		<br/>
+		
+		<h:form id="formActionMenu">
+			<div id="buttons">
+				<p:commandButton id="btnCriar" value="Criar" type="submit" icon="ui-icon-plusthick" onclick="showDialog()" update="frmUsuario" style="margin-right: 5px;">
+					<f:actionListener binding="#{usuarioController.setAction('CREATE')}"/>
+					<f:actionListener binding="#{usuarioController.mountUsuario()}"/>
+				</p:commandButton>
+				<p:commandButton id="btnExcluir" value="Excluir" type="submit" icon="ui-icon-closethick" action="#{usuarioController.deleteSelectedUsuarios}" update="frmUsuarios:dtUsuarios @this" disabled="#{not usuarioController.isExcluirEnabled()}"/>
+			</div>
+			<div id="title">
+				Usuários
+			</div>
+		</h:form>
+		
+		<br/>
+		
+		<p:dialog widgetVar="dlgUsuario" showHeader="false" draggable="false" resizable="false" modal="true" closable="false" width="300px">
+
+		   <h:form id="frmUsuario">
+		    	<p:panel id="panel" header="#{usuarioController.action == 'CREATE' ? 'Criar Usuário' : 'Editar Usuário'}">
+			        <h:panelGrid columns="2" cellpadding="5">
+			            <h:outputLabel for="nome" value="Nome:" />
+		    			<p:inputText id="nome" required="true" value="#{usuarioController.usuario.nome}" style="width: 200px"/>
+		    			<h:outputLabel for="login" value="Login:" />
+		    			<p:inputText id="login" required="true" value="#{usuarioController.usuario.login}"/>
+		    			<h:outputLabel for="senha" value="Senha:" />
+		    			<p:password id="senha" required="true" value="#{usuarioController.usuario.senha}"/>
+			        </h:panelGrid>
+			        <div style="text-align: right; margin-top: 5px">
+				    	<p:commandButton value="Salvar" type="submit" icon="ui-icon-check" action="#{usuarioController.saveUsuario()}" update="frmUsuarios:dtUsuarios" onclick="hideDialog();"/>
+				    	<p:commandButton value="Fechar" type="button" icon="ui-icon-closethick" onclick="hideDialog();"/>
+			    	</div>
+			    </p:panel>
+		    </h:form>
+		    
+		</p:dialog>
+	
+		<h:form id="frmUsuarios">
+			<p:dataTable id="dtUsuarios" 
+				var="usuario" 
+				value="#{usuarioController.usuarios}" 
+				selection="#{usuarioController.selectedUsuarios}" 
+				rowKey="#{usuario.id}"
+				rows="25"
+				paginator="true"
+				paginatorPosition="bottom"
+				emptyMessage="Nenhum usuário localizado.">
+				
+				<p:ajax event="toggleSelect" update=":formActionMenu:btnExcluir"/>
+				<p:ajax event="rowSelectCheckbox" update=":formActionMenu:btnExcluir"/>
+        		<p:ajax event="rowUnselectCheckbox" update=":formActionMenu:btnExcluir" />
+	        	
+	        	<p:column selectionMode="multiple" style="width:16px; text-align:center"/>
+			    <p:column headerText="Nome" style="text-align: left; line-height: 25px; border-right-width: 0px">
+					<h:outputText value="#{usuario.nome}" />
+			    </p:column>
+			    <p:column width="100" style="text-align: center; border-left-width: 0px">
+			   		<p:commandButton value="Editar" type="submit" icon="ui-icon-pencil" onclick="showDialog()" update="frmUsuario" style="margin-right: 5px;">
+						<f:actionListener binding="#{usuarioController.setAction('UPDATE')}"/>
+						<f:actionListener binding="#{usuarioController.setUsuario(usuario)}"/>
+					</p:commandButton>
+			    </p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:composition>
+</html>
