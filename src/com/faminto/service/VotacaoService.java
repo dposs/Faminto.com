@@ -1,18 +1,25 @@
 package com.faminto.service;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import com.faminto.dao.VotacaoDao;
+import com.faminto.model.Restaurante;
 import com.faminto.model.Votacao;
+import com.faminto.model.Voto;
 
 @ManagedBean
 @ApplicationScoped
@@ -22,6 +29,12 @@ public class VotacaoService implements Serializable {
 	
 	@ManagedProperty("#{votacaoDao}")
 	private VotacaoDao votacaoDao;
+	
+	@ManagedProperty("#{usuarioService}")
+	private UsuarioService usuarioService;
+	
+	@ManagedProperty("#{votoService}")
+	private VotoService votoService;
 	
 	public void create(Votacao votacao) {
 		votacao.setId(getNextId());
@@ -38,8 +51,51 @@ public class VotacaoService implements Serializable {
 		}
 	}
 	
+	public Votacao mount() {
+		Votacao votacao = new Votacao();
+		
+		LocalDateTime dataLocal = LocalDateTime.now().withHour(12);
+		Date data = Date.from(dataLocal.atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
+		
+		votacao.setData(data);
+		votacao.setRealizador(usuarioService.getUsuarioLogado());
+		
+		return votacao;
+	}
+	
 	public List<Votacao> findAll() {
 		return votacaoDao.select();
+	}
+	
+	public List<Votacao> find(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+		List<Votacao> votacoesByDate = new ArrayList<Votacao>();
+		List<Votacao> votacoes = findAll();
+		
+		for (Votacao votacao : votacoes) {
+			LocalDateTime dataVotacao = LocalDateTime.ofInstant(votacao.getData().toInstant(), ZoneId.of("America/Sao_Paulo"));
+			
+			if (dataVotacao.isAfter(dataInicial) && dataVotacao.isBefore(dataFinal)) {
+				votacoesByDate.add(votacao);
+			}
+		}
+		
+		return votacoesByDate;
+	}
+	
+	public List<Map.Entry<Restaurante, Long>> getResultado(Votacao votacao) {
+		List<Voto> votos = votoService.find(votacao);
+		
+		Map<Restaurante, Long> votosGrouped = votos.stream().collect(
+			Collectors.groupingBy(Voto::getRestaurante, Collectors.counting())
+		);
+		
+		return (ArrayList<Map.Entry<Restaurante, Long>>) votosGrouped.entrySet().stream().sorted(
+			new Comparator<Map.Entry<Restaurante, Long>>() {
+				@Override
+				public int compare(Entry<Restaurante, Long> e1, Entry<Restaurante, Long> e2) {
+					return e2.getValue().compareTo(e1.getValue());
+				}
+			}).collect(Collectors.toList());
 	}
 	
 	private int getNextId() {
@@ -67,5 +123,13 @@ public class VotacaoService implements Serializable {
 	
 	public void setVotacaoDao(VotacaoDao votacaoDao) {
 		this.votacaoDao = votacaoDao;
+	}
+
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
+	public void setVotoService(VotoService votoService) {
+		this.votoService = votoService;
 	}
 }
