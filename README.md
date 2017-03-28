@@ -23,7 +23,7 @@ Github: https://github.com/dposs/Faminto.com
 - [ ] Persistênia da senha do usuário com segurança (hash + salt).
 - [ ] Internacionalização e properties para strings.
 - [ ] Tratamento de Erros.
-- [ ] Tratamento de Regras de Negócio.Exemplo:
+- [ ] Tratamento de Regras de Negócio. Exemplo:
 	- Exclusão de Restaurantes que estão sendo utilizados em Votações.
 	- Exclusão de Votações que possuem Votos.
 	- Alteração da data de uma Votação que já possui Votos.
