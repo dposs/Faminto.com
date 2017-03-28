@@ -1,4 +1,6 @@
 # Faminto.com
+Projeto Java para implementação de case DBServer. ;)
+
 Github: https://github.com/dposs/Faminto.com 
 
 **Tecnologias envolvidas no projeto:**
