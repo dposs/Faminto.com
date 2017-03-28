@@ -30,6 +30,11 @@ Github: https://github.com/dposs/Faminto.com
 
 **Screenshots:**
 
-![Votacoes](https://github.com/dposs/Faminto.com/blob/development/assets/votacoes.jpg)
-![Restaurantes](https://github.com/dposs/Faminto.com/blob/development/assets/restaurantes.jpg)
-![Usuarios](https://github.com/dposs/Faminto.com/blob/development/assets/usuarios.jpg)
+*Votações*
+![Votacoes](https://github.com/dposs/Faminto.com/blob/development/assets/votacoes.png)
+
+*Restaurantes*
+![Restaurantes](https://github.com/dposs/Faminto.com/blob/development/assets/restaurantes.png)
+
+*Usuários*
+![Usuarios](https://github.com/dposs/Faminto.com/blob/development/assets/usuarios.png)
