@@ -7,7 +7,6 @@ Github: https://github.com/dposs/Faminto.com
 - Java 1.8.0 revision 121 (JEE 7)
 - Primefaces 6.1.RC2
 - Apache Maven 3.3.9
-- GiHub (ah vah..)
 - JBoss Wildfly 10.1.0
 - Eclipse Neon.2 Release (4.6.2)
 - JBoss Tools 4.4.3
