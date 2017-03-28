@@ -1,5 +1,5 @@
 # Faminto.com
-Projeto Java para implementaÁ„o de case DBServer. ;)
+Projeto Java para implementa√ß√£o de case DBServer. ;)
 
 Github: https://github.com/dposs/Faminto.com 
 
@@ -7,36 +7,37 @@ Github: https://github.com/dposs/Faminto.com
 - Java 1.8.0 revision 121 (JEE 7)
 - Primefaces 6.1.RC2
 - Apache Maven 3.3.9
+- GiHub (ah vah..)
 - JBoss Wildfly 10.1.0
 - Eclipse Neon.2 Release (4.6.2)
 - JBoss Tools 4.4.3
 
 **Melhorias a serem desenvolvidas:**
 
-- [ ] Testes Unit·rios. Sugest„o:
+- [ ] Testes Unit√°rios. Sugest√£o:
 	- JUnit/Arquillian
-- [ ] PersistÍncia em Base de Dados (Est· armazenando atualmente os valores em memÛria). Sugestıes:
+- [ ] Persist√™ncia em Base de Dados (Est√° armazenando atualmente os valores em mem√≥ria). Sugest√µes:
 	- JPA + Hibernate
 	- Ibatis
-- [ ] AutenticaÁ„o de Usu·rio (Est· utilizando usu·rio fake "Administrador").
-- [ ] ImplementaÁ„o de Perfis de Usu·rio.
-- [ ] PersistÍnia da senha do usu·rio com seguranÁa (hash + salt).
-- [ ] InternacionalizaÁ„o e properties para strings.
+- [ ] Autentica√ß√£o de Usu√°rio (Est√° utilizando usu√°rio fake "Administrador").
+- [ ] Implementa√ß√£o de Perfis de Usu√°rio.
+- [ ] Persist√™nia da senha do usu√°rio com seguran√ßa (hash + salt).
+- [ ] Internacionaliza√ß√£o e properties para strings.
 - [ ] Tratamento de Erros.
-- [ ] Tratamento de Regras de NegÛcio. Exemplo:
-	- Exclus„o de Restaurantes que est„o sendo utilizados em VotaÁıes.
-	- Exclus„o de VotaÁıes que possuem Votos.
-	- AlteraÁ„o da data de uma VotaÁ„o que j· possui Votos.
+- [ ] Tratamento de Regras de Neg√≥cio. Exemplo:
+	- Exclus√£o de Restaurantes que est√£o sendo utilizados em Vota√ß√µes.
+	- Exclus√£o de Vota√ß√µes que possuem Votos.
+	- Altera√ß√£o da data de uma Vota√ß√£o que j√° possui Votos.
 	- etc...
-- [ ] OrganizaÁ„o do CSS.
+- [ ] Organiza√ß√£o do CSS.
 
 **Screenshots:**
 
-*VotaÁıes*
+*Vota√ß√µes*
 ![Votacoes](https://github.com/dposs/Faminto.com/blob/development/assets/votacoes.png)
 
 *Restaurantes*
 ![Restaurantes](https://github.com/dposs/Faminto.com/blob/development/assets/restaurantes.png)
 
-*Usu·rios*
+*Usu√°rios*
 ![Usuarios](https://github.com/dposs/Faminto.com/blob/development/assets/usuarios.png)
