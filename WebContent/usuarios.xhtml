@@ -73,7 +73,7 @@
 			    <p:column headerText="Nome" style="text-align: left; line-height: 25px; border-right-width: 0px">
 					<h:outputText value="#{usuario.nome}" />
 			    </p:column>
-			    <p:column width="100" style="text-align: center; border-left-width: 0px">
+			    <p:column width="100" style="text-align: right; border-left-width: 0px">
 			   		<p:commandButton value="Editar" type="submit" icon="ui-icon-pencil" onclick="showDialog()" update="frmUsuario" style="margin-right: 5px;">
 						<f:actionListener binding="#{usuarioController.setAction('UPDATE')}"/>
 						<f:actionListener binding="#{usuarioController.setUsuario(usuario)}"/>

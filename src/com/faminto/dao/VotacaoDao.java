@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -37,11 +38,7 @@ public class VotacaoDao implements Serializable {
 	}
 	
 	public void update(Votacao votacao) {
-		int index = votacoes.indexOf(votacao);
-		if (index == -1) {
-			return;
-		}
-		votacoes.set(index, votacao);
+		votacoes.add(votacao);
 	}
 	
 	public void delete(Votacao votacao) {
@@ -49,6 +46,7 @@ public class VotacaoDao implements Serializable {
 	}
 	
 	public List<Votacao> select() {
+		Collections.sort(votacoes);
 		return votacoes;
 	}
 }

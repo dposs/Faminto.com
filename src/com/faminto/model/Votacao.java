@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class Votacao implements Serializable {
+public class Votacao implements Serializable, Comparable<Votacao> {
 
 	private static final long serialVersionUID = 1046918674287759585L;
 	
@@ -87,5 +87,10 @@ public class Votacao implements Serializable {
 		}
 		
 		return true;
+	}
+
+	@Override
+	public int compareTo(Votacao votacao) {
+		return data.compareTo(votacao.getData()) * -1;
 	}
 }

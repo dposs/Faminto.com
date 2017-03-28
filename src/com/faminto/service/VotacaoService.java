@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
@@ -41,10 +42,6 @@ public class VotacaoService implements Serializable {
 		return votacaoDao.select();
 	}
 	
-	public void setVotacaoDao(VotacaoDao votacaoDao) {
-		this.votacaoDao = votacaoDao;
-	}
-	
 	private int getNextId() {
 		List<Votacao> votacoes = findAll();
 		
@@ -62,5 +59,13 @@ public class VotacaoService implements Serializable {
 		});
 		
 		return votacoesSorted.get(votacoesSorted.size() - 1).getId() + 1;
+	}
+	
+	public boolean isVotacaoAberta(Votacao votacao) {
+		return votacao.getData().after(new Date());
+	}
+	
+	public void setVotacaoDao(VotacaoDao votacaoDao) {
+		this.votacaoDao = votacaoDao;
 	}
 }

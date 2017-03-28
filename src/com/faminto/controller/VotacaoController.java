@@ -2,7 +2,10 @@ package com.faminto.controller;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -57,9 +60,11 @@ public class VotacaoController implements Serializable {
 	public void init() {
 		votacao = new Votacao();
 		voto = new Voto();
+		
 		votacoes = votacaoService.findAll();
-		selectedVotacoes = new ArrayList<Votacao>();
 		restaurantes = restauranteService.findAll();
+		
+		selectedVotacoes = new ArrayList<Votacao>();
 	}
 
 	public ActionEnum getAction() {
@@ -80,7 +85,9 @@ public class VotacaoController implements Serializable {
 	
 	public void mountVotacao() {
 		votacao = new Votacao();
-		votacao.setData(new Date());
+		LocalDateTime dataLocal = LocalDateTime.now().withHour(12);
+		Date data = Date.from(dataLocal.atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
+		votacao.setData(data);
 		votacao.setRealizador(usuarioService.getUsuarioLogado());
 	}
 	
@@ -88,9 +95,11 @@ public class VotacaoController implements Serializable {
 		switch (getVotacaoAction()) {
 		case CREATE:
 			votacaoService.create(votacao);
+			Collections.sort(votacoes);
 			break;
 		case UPDATE:
 			votacaoService.update(votacao);
+			Collections.sort(votacoes);
 			break;
 		default:
 			throw new InvalidParameterException();
@@ -153,6 +162,10 @@ public class VotacaoController implements Serializable {
 
 	public List<Votacao> getSelectedVotacoes() {
 		return selectedVotacoes;
+	}
+	
+	public boolean isVotacaoAberta(Votacao votacao) {
+		return votacaoService.isVotacaoAberta(votacao);
 	}
 
 	public void setSelectedVotacoes(List<Votacao> selectedVotacoes) {

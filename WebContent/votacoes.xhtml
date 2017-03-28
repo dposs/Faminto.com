@@ -113,8 +113,8 @@
 			    <p:column headerText="Realizador" style="text-align: left; border-left-width: 0px; border-right-width: 0px">
 					<h:outputText value="#{votacao.realizador.nome}" />
 			    </p:column>
-			    <p:column width="275" style="text-align: center; border-left-width: 0px">
-					<p:commandButton value="Votar" type="submit" icon="ui-icon-comment" onclick="showDialog('dlgVoto')" update="frmVoto" style="margin-right: 5px;">
+			    <p:column width="275" style="text-align: right; border-left-width: 0px">
+					<p:commandButton value="Votar" type="submit" icon="ui-icon-comment" onclick="showDialog('dlgVoto')" update="frmVoto" style="margin-right: 5px;" rendered="#{votacaoController.isVotacaoAberta(votacao)}">
 						<f:actionListener binding="#{votacaoController.setVotacao(votacao)}"/>
 						<f:actionListener binding="#{votacaoController.setVoto()}"/>
 					</p:commandButton>
