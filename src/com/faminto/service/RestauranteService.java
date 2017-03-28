@@ -41,6 +41,10 @@ public class RestauranteService implements Serializable {
 		return restauranteDao.select();
 	}
 	
+	public Restaurante find(Integer id) {
+		return restauranteDao.select(id);
+	}
+	
 	public void setRestauranteDao(RestauranteDao restauranteDao) {
 		this.restauranteDao = restauranteDao;
 	}

@@ -23,8 +23,9 @@ public class UsuarioDao implements Serializable {
 	
 	static {
 		usuarios = new ArrayList<Usuario>();
-		usuarios.add(new Usuario(1, "Alex", "alex", "alex"));
-		usuarios.add(new Usuario(2, "John", "john", "john"));
+		usuarios.add(new Usuario(1, "Administrador", "admin", "admin"));
+		usuarios.add(new Usuario(2, "Alex", "alex", "alex"));
+		usuarios.add(new Usuario(3, "John", "john", "john"));
 	}
 	
 	public void insert(Usuario usuario) {
@@ -45,5 +46,14 @@ public class UsuarioDao implements Serializable {
 	
 	public List<Usuario> select() {
 		return usuarios;
+	}
+	
+	public Usuario select(String login) {
+		for (Usuario usuario : usuarios) {
+			if (usuario.getLogin().equals(login)) {
+				return usuario;
+			}
+		}
+		return null;
 	}
 }

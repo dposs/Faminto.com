@@ -24,7 +24,7 @@ public class HomeController implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		page = PageEnum.RESTAURANTES;
+		page = PageEnum.VOTACOES;
 	}
 	
 	public PageEnum getPage() {

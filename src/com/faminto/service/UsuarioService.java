@@ -22,13 +22,13 @@ public class UsuarioService implements Serializable {
 
 	private Usuario usuarioLogado;
 	
-	@PostConstruct
-	public void init() {
-		usuarioLogado = findAll().get(0);
-	}
-	
 	@ManagedProperty("#{usuarioDao}")
 	private UsuarioDao usuarioDao;
+	
+	@PostConstruct
+	public void init() {
+		usuarioLogado = usuarioDao.select("admin");
+	}
 	
 	public void create(Usuario usuario) {
 		usuario.setId(getNextId());

@@ -31,6 +31,14 @@
 			.ui-datatable-tablewrapper {
 			    overflow: hidden;
 			}
+			
+			.ui-datatable .ui-datatable-header,.ui-datatable .ui-datatable-footer {
+				text-align: left;
+			}
+			
+			.ui-widget-header {
+				color: gray;
+			}
 
 			body {
 				color: #373737;
@@ -39,15 +47,21 @@
 				background: url("resources/images/background.jpg");
 			}
 			
+			#buttons {
+				text-align: left;
+				width: 170px;
+				display: inline-block;
+			}
+			
 			#title {
-			    background-color: rgba(255,255,255,0.9);
-			    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.3);
-			    padding-left: 15px;
-			    color: #666;
-			    font-size: 12px;
-			    line-height: 35px;
-			    border-bottom: 1px solid rgb(213, 213, 213);
-			    border-radius: 4px;
+			    text-align: right;
+			    width: 810px;
+			    float: right;
+			    line-height: 22px;
+			    font-size: 18px;
+			    color: #999;
+			    font-weight: 600;
+			    margin-right: 10px;
 			}
 			
 			#root {
@@ -79,8 +93,8 @@
 						<p:menuitem value="Usuários" icon="ui-icon-person" actionListener="#{homeController.setPage('USUARIOS')}" update=":content"/>
 						<f:facet name="options">
 				            <h:outputText value="Seja bem vindo, " style="line-height: 26px; color: gray"/>
-				            <h:outputText value="#{homeController.getUsuarioLogado().nome}" style="line-height: 26px; color: gray; font-weight: 600; margin-right: 10px"/>
-				            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink"/>
+				            <h:outputText value="#{homeController.getUsuarioLogado().nome}" style="line-height: 26px; color: gray; font-weight: 600; margin-right: 15px"/>
+				            <p:commandButton type="button" value="Logout" icon="ui-icon-power"/>
 				        </f:facet>
 					</p:menubar>
 					

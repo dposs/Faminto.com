@@ -11,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import com.faminto.dao.VotoDao;
+import com.faminto.model.Usuario;
+import com.faminto.model.Votacao;
 import com.faminto.model.Voto;
 
 @ManagedBean
@@ -37,8 +39,39 @@ public class VotoService implements Serializable {
 		}
 	}
 	
+	public Voto mount(Votacao votacao, Usuario usuario) {
+		Voto voto = new Voto();
+		voto.setVotacao(votacao);
+		voto.setUsuario(usuario);
+		
+		return voto;
+	}
+	
 	public List<Voto> findAll() {
 		return votoDao.select();
+	}
+	
+	public List<Voto> find(Votacao votacao) {
+		List<Voto> votosVotacao = new ArrayList<Voto>();
+		List<Voto> votos = findAll();
+		
+		for (Voto voto : votos) {
+			if (voto.getVotacao().equals(votacao)) {
+				votosVotacao.add(voto);
+			}
+		}
+		
+		return votosVotacao;
+	}
+	
+	public Voto find(Votacao votacao, Usuario usuario) {
+		List<Voto> votos = findAll();
+		for (Voto voto : votos) {
+			if (voto.getVotacao().equals(votacao) && voto.getUsuario().equals(usuario)) {
+				return voto;
+			}
+		}
+		return null;
 	}
 	
 	public void setVotoDao(VotoDao votoDao) {

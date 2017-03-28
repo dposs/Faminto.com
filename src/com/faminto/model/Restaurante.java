@@ -17,7 +17,7 @@ public class Restaurante implements Serializable {
 	public Restaurante() {
 	}
 	
-	public Restaurante(int id, String nome) {
+	public Restaurante(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}

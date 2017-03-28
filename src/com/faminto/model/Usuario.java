@@ -19,7 +19,7 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 	
-	public Usuario(int id, String nome, String login, String senha) {
+	public Usuario(Integer id, String nome, String login, String senha) {
 		this.id = id;
 		this.nome = nome;
 		this.login = login;

@@ -21,13 +21,13 @@ public class Votacao implements Serializable {
 	public Votacao() {
 	}
 	
-	public Votacao(int id, Date data, Usuario realizador) {
+	public Votacao(Integer id, Date data, Usuario realizador) {
 		this.id = id;
 		this.data = data;
 		this.realizador = realizador;
 	}
 	
-	public Votacao(int id, Date data, Usuario realizador, List<Voto> votos) {
+	public Votacao(Integer id, Date data, Usuario realizador, List<Voto> votos) {
 		this.id = id;
 		this.data = data;
 		this.realizador = realizador;

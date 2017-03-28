@@ -67,4 +67,13 @@ public class RestauranteDao implements Serializable {
 	public List<Restaurante> select() {
 		return restaurantes;
 	}
+	
+	public Restaurante select(Integer id) {
+		for (Restaurante restaurante : restaurantes) {
+			if (restaurante.getId().equals(id)) {
+				return restaurante;
+			}
+		}
+		return null;
+	}
 }
