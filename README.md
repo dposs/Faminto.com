@@ -1,5 +1,5 @@
 # Faminto.com
-Case de projeto para votação em restaurantes.
+Sistema para votação em restaurantes.
 
 Github: https://github.com/dposs/Faminto.com 
 
