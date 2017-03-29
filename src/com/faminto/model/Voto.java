@@ -14,6 +14,8 @@ public class Voto implements Serializable {
 	private Integer id;
 	private Votacao votacao;
 	private Usuario usuario;
+	
+	//@CheckNotWeekWinner
 	private Restaurante restaurante;
 
 	public Voto() {

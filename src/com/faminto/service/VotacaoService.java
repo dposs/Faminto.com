@@ -3,11 +3,13 @@ package com.faminto.service;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -67,7 +69,7 @@ public class VotacaoService implements Serializable {
 		return votacaoDao.select();
 	}
 	
-	public List<Votacao> find(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+	public List<Votacao> findByIntervalo(LocalDateTime dataInicial, LocalDateTime dataFinal) {
 		List<Votacao> votacoesByDate = new ArrayList<Votacao>();
 		List<Votacao> votacoes = findAll();
 		
@@ -96,6 +98,26 @@ public class VotacaoService implements Serializable {
 					return e2.getValue().compareTo(e1.getValue());
 				}
 			}).collect(Collectors.toList());
+	}
+	
+	public List<Restaurante> getRestaurantesVencedoresSemana() {
+
+		List<Restaurante> restaurantes = new ArrayList<Restaurante>();
+		
+		LocalDateTime dataAtual = LocalDateTime.now();
+		LocalDateTime dataPrimeiroDiaSemana = (dataAtual.with(WeekFields.of(Locale.ROOT).dayOfWeek(), 1));
+		
+		List<Votacao> votacoes = findByIntervalo(dataPrimeiroDiaSemana, dataAtual);
+		
+		for (Votacao votacao : votacoes) {
+			List<Map.Entry<Restaurante, Long>> resultado = getResultado(votacao);
+			
+			if (!resultado.isEmpty()) {
+				restaurantes.add(resultado.get(0).getKey());
+			}
+		}
+		
+		return restaurantes;
 	}
 	
 	private int getNextId() {

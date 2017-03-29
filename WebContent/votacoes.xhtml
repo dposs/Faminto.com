@@ -76,8 +76,8 @@
 		    	<p:panel id="panelVoto" header="#{votacaoController.getVotoAction() == 'CREATE' ? 'Votar' : 'Editar Voto'}">
 			        <h:panelGrid columns="2" cellpadding="5">
 		    			<h:outputLabel for="restaurante" value="Restaurante:" />
-		    			<p:selectOneMenu id="restaurante" value="#{votacaoController.voto.restaurante}" converter="#{restauranteConverter}" filter="true" filterMatchMode="contains" style="width:125px">
-		    				<f:selectItem itemLabel="Selecione" itemValue="" />
+		    			<p:selectOneMenu id="restaurante" value="#{votacaoController.voto.restaurante}" converter="#{restauranteConverter}" required="true" filter="true" filterMatchMode="contains" style="width:125px">
+		    				<f:selectItem itemLabel="(Selecione)" itemValue="#{null}" noSelectionOption="true" />
 				            <f:selectItems value="#{votacaoController.restaurantes}" var="r" itemLabel="#{r.nome}" itemValue="#{r}"/>
 				        </p:selectOneMenu>
 			        </h:panelGrid>
