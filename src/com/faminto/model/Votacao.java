@@ -1,6 +1,7 @@
 package com.faminto.model;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -13,11 +14,17 @@ public class Votacao implements Serializable, Comparable<Votacao> {
 
 	private static final long serialVersionUID = 1046918674287759585L;
 	
+	public static final LocalTime DEFAULT_TIME;
+	
 	private Integer id;
 	private Date data;
 	private Usuario realizador;
 	private List<Voto> votos;
 
+	static {
+		DEFAULT_TIME = LocalTime.of(12, 0, 0);
+	}
+	
 	public Votacao() {
 	}
 	

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import com.faminto.util.validator.CheckNotWeekWinner;
+
 @ManagedBean
 @ViewScoped
 public class Voto implements Serializable {
@@ -15,7 +17,7 @@ public class Voto implements Serializable {
 	private Votacao votacao;
 	private Usuario usuario;
 	
-	//@CheckNotWeekWinner
+	@CheckNotWeekWinner
 	private Restaurante restaurante;
 
 	public Voto() {

@@ -6,13 +6,13 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import com.faminto.model.Restaurante;
-import com.faminto.model.Voto;
 import com.faminto.service.VotacaoService;
 
-public class CheckNotWeekWinnerValidator implements ConstraintValidator<CheckNotWeekWinner, Voto> {
-
-	VotacaoService votacaoService;
+public class CheckNotWeekWinnerValidator implements ConstraintValidator<CheckNotWeekWinner, Restaurante> {
+	
 	List<Restaurante> restaurantesVencedoresSemana;
+	
+	private VotacaoService votacaoService;
 	
     @Override
     public void initialize(CheckNotWeekWinner annotation) {
@@ -21,11 +21,15 @@ public class CheckNotWeekWinnerValidator implements ConstraintValidator<CheckNot
     }
 
     @Override
-    public boolean isValid(Voto voto, ConstraintValidatorContext constraintContext) {
-        if (voto == null ) {
-            return true;
+    public boolean isValid(Restaurante restaurante, ConstraintValidatorContext constraintContext) {
+        if (restaurante == null) {
+            return false;
         }
 
-        return !restaurantesVencedoresSemana.contains(voto.getRestaurante());
+        return !restaurantesVencedoresSemana.contains(restaurante);
     }
+    
+    public void setVotacaoService(VotacaoService votacaoService) {
+		this.votacaoService = votacaoService;
+	}
 }

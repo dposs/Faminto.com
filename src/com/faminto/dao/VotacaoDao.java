@@ -31,6 +31,7 @@ public class VotacaoDao implements Serializable {
 		votacoes = new ArrayList<Votacao>();
 		votacoes.add(new Votacao(1, Date.from(LocalDate.of(2017, 3, 25).atStartOfDay(ZoneId.systemDefault()).toInstant()), usuarioDao.select().get(1)));
 		votacoes.add(new Votacao(2, Date.from(LocalDate.of(2017, 3, 26).atStartOfDay(ZoneId.systemDefault()).toInstant()), usuarioDao.select().get(2)));
+		votacoes.add(new Votacao(3, Date.from(LocalDate.of(2017, 3, 27).atStartOfDay(ZoneId.systemDefault()).toInstant()), usuarioDao.select().get(2)));
 	}
 	
 	public void insert(Votacao votacao) {

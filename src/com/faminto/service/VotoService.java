@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -29,17 +28,20 @@ public class VotoService implements Serializable {
 	
 	private static Validator validator;
 	
+	private VotoDao votoDao;
+	
+	public VotoService() {
+		votoDao = new VotoDao();
+	}
+	
 	@PostConstruct
     public static void initValidator() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
 	
-	@ManagedProperty("#{votoDao}")
-	private VotoDao votoDao;
-	
 	public void create(Voto voto) {
-		//validate(voto);
+		validate(voto);
 		voto.setId(getNextId());
 		votoDao.insert(voto);
 	}

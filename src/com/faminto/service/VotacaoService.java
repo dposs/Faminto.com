@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 
 import com.faminto.dao.VotacaoDao;
 import com.faminto.model.Restaurante;
 import com.faminto.model.Votacao;
 import com.faminto.model.Voto;
+import com.faminto.util.date.DateUtils;
 
 @ManagedBean
 @ApplicationScoped
@@ -29,21 +29,24 @@ public class VotacaoService implements Serializable {
 	
 	private static final long serialVersionUID = 8331502170988451085L;
 	
-	@ManagedProperty("#{votacaoDao}")
 	private VotacaoDao votacaoDao;
-	
-	@ManagedProperty("#{usuarioService}")
 	private UsuarioService usuarioService;
-	
-	@ManagedProperty("#{votoService}")
 	private VotoService votoService;
+	
+	public VotacaoService() {
+		votacaoDao = new VotacaoDao();
+		usuarioService = new UsuarioService();
+		votoService = new VotoService();
+	}
 	
 	public void create(Votacao votacao) {
 		votacao.setId(getNextId());
+		votacao.setData(DateUtils.getDateWithTime(votacao.getData(), Votacao.DEFAULT_TIME));
 		votacaoDao.insert(votacao);
 	}
 	
 	public void update(Votacao votacao) {
+		votacao.setData(DateUtils.getDateWithTime(votacao.getData(), Votacao.DEFAULT_TIME));
 		votacaoDao.update(votacao);
 	}
 	
@@ -55,11 +58,7 @@ public class VotacaoService implements Serializable {
 	
 	public Votacao mount() {
 		Votacao votacao = new Votacao();
-		
-		LocalDateTime dataLocal = LocalDateTime.now().withHour(12);
-		Date data = Date.from(dataLocal.atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
-		
-		votacao.setData(data);
+		votacao.setData(DateUtils.getDateWithTime(new Date(), Votacao.DEFAULT_TIME));
 		votacao.setRealizador(usuarioService.getUsuarioLogado());
 		
 		return votacao;
@@ -141,17 +140,5 @@ public class VotacaoService implements Serializable {
 	
 	public boolean isVotacaoAberta(Votacao votacao) {
 		return votacao.getData().after(new Date());
-	}
-	
-	public void setVotacaoDao(VotacaoDao votacaoDao) {
-		this.votacaoDao = votacaoDao;
-	}
-
-	public void setUsuarioService(UsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
-	}
-
-	public void setVotoService(VotoService votoService) {
-		this.votoService = votoService;
 	}
 }
