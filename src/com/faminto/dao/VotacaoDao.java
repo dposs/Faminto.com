@@ -8,9 +8,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 import com.faminto.model.Votacao;
 
 /**
