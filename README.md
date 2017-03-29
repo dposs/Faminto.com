@@ -1,5 +1,5 @@
 # Faminto.com
-Projeto Java para implementação de case DBServer. ;)
+Case de projeto para votação em restaurantes.
 
 Github: https://github.com/dposs/Faminto.com 
 
@@ -17,7 +17,7 @@ Github: https://github.com/dposs/Faminto.com
 	- JUnit/Arquillian
 - [ ] Persistência em Base de Dados (Está armazenando atualmente os valores em memória). Sugestões:
 	- JPA + Hibernate
-	- Ibatis
+	- Mybatis
 - [ ] Autenticação de Usuário (Está utilizando usuário fake "Administrador").
 - [ ] Implementação de Perfis de Usuário.
 - [ ] Persistênia da senha do usuário com segurança (hash + salt).
@@ -29,14 +29,3 @@ Github: https://github.com/dposs/Faminto.com
 	- Alteração da data de uma Votação que já possui Votos.
 	- etc...
 - [ ] Organização do CSS.
-
-**Screenshots:**
-
-*Votações*
-![Votacoes](https://github.com/dposs/Faminto.com/blob/development/assets/votacoes.png)
-
-*Restaurantes*
-![Restaurantes](https://github.com/dposs/Faminto.com/blob/development/assets/restaurantes.png)
-
-*Usuários*
-![Usuarios](https://github.com/dposs/Faminto.com/blob/development/assets/usuarios.png)
