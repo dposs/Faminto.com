@@ -17,8 +17,6 @@ import com.faminto.model.Votacao;
  * Classe DAO FAKE.
  * Mantem valores em memoria.
  */
-@ManagedBean
-@ApplicationScoped
 public class VotacaoDao implements Serializable {
 	
 	private static final long serialVersionUID = 4683793228369922502L;

@@ -4,17 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 import com.faminto.model.Restaurante;
 
 /**
  * Classe DAO FAKE.
  * Mantem valores em memoria.
  */
-@ManagedBean
-@ApplicationScoped
 public class RestauranteDao implements Serializable {
 	
 	private static final long serialVersionUID = -5482752818133399600L;

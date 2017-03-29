@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 
 import com.faminto.dao.RestauranteDao;
 import com.faminto.model.Restaurante;
@@ -19,8 +18,11 @@ public class RestauranteService implements Serializable {
 
 	private static final long serialVersionUID = 9075414646670976304L;
 	
-	@ManagedProperty("#{restauranteDao}")
 	private RestauranteDao restauranteDao;
+	
+	public RestauranteService() {
+		restauranteDao = new RestauranteDao();
+	}
 	
 	public void create(Restaurante restaurante) {
 		restaurante.setId(getNextId());
@@ -43,10 +45,6 @@ public class RestauranteService implements Serializable {
 	
 	public Restaurante find(Integer id) {
 		return restauranteDao.select(id);
-	}
-	
-	public void setRestauranteDao(RestauranteDao restauranteDao) {
-		this.restauranteDao = restauranteDao;
 	}
 	
 	private int getNextId() {

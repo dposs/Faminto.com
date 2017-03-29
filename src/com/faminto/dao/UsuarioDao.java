@@ -4,17 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 import com.faminto.model.Usuario;
 
 /**
  * Classe DAO FAKE.
  * Mantem valores em memoria.
  */
-@ManagedBean
-@ApplicationScoped
 public class UsuarioDao implements Serializable {
 	
 	private static final long serialVersionUID = 4683793228369922502L;

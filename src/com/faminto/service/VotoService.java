@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.validation.ConstraintViolation;
@@ -32,13 +31,10 @@ public class VotoService implements Serializable {
 	
 	public VotoService() {
 		votoDao = new VotoDao();
-	}
-	
-	@PostConstruct
-    public static void initValidator() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
-    }
+	}
 	
 	public void create(Voto voto) {
 		validate(voto);
@@ -97,10 +93,6 @@ public class VotoService implements Serializable {
 			}
 		}
 		return null;
-	}
-	
-	public void setVotoDao(VotoDao votoDao) {
-		this.votoDao = votoDao;
 	}
 	
 	private int getNextId() {
