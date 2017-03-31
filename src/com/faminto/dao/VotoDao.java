@@ -23,8 +23,8 @@ public class VotoDao implements Serializable {
 		
 		votos = new ArrayList<Voto>();
 		votos.add(new Voto(5, votacaoDao.select().get(0), usuarioDao.select().get(0), restauranteDao.select().get(11)));
-		votos.add(new Voto(6, votacaoDao.select().get(0), usuarioDao.select().get(1), restauranteDao.select().get(13)));
-		votos.add(new Voto(7, votacaoDao.select().get(0), usuarioDao.select().get(2), restauranteDao.select().get(13)));
+		votos.add(new Voto(6, votacaoDao.select().get(0), usuarioDao.select().get(1), restauranteDao.select().get(14)));
+		votos.add(new Voto(7, votacaoDao.select().get(0), usuarioDao.select().get(2), restauranteDao.select().get(14)));
 		votos.add(new Voto(1, votacaoDao.select().get(1), usuarioDao.select().get(1), restauranteDao.select().get(5)));
 		votos.add(new Voto(2, votacaoDao.select().get(1), usuarioDao.select().get(2), restauranteDao.select().get(5)));
 		votos.add(new Voto(3, votacaoDao.select().get(2), usuarioDao.select().get(1), restauranteDao.select().get(8)));

@@ -36,7 +36,7 @@ public class VotoService implements Serializable {
         validator = factory.getValidator();
 	}
 	
-	public void create(Voto voto) {
+	public void create(Voto voto) throws IllegalArgumentException {
 		validate(voto);
 		voto.setId(getNextId());
 		votoDao.insert(voto);
@@ -52,7 +52,7 @@ public class VotoService implements Serializable {
 		}
 	}
 	
-	public void validate(Voto voto) {
+	public void validate(Voto voto) throws IllegalArgumentException {
 		Set<ConstraintViolation<Voto>> constraintViolations = validator.validate(voto);
 		
 		if (!constraintViolations.isEmpty()) {
