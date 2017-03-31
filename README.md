@@ -1,5 +1,5 @@
 # Faminto.com
-Projeto Java para implementação de case DBServer. ;)
+Sistema para votaÃ§Ã£o em restaurantes.
 
 Github: https://github.com/dposs/Faminto.com 
 
@@ -13,30 +13,19 @@ Github: https://github.com/dposs/Faminto.com
 
 **Melhorias a serem desenvolvidas:**
 
-- [ ] Testes Unitários. Sugestão:
+- [ ] Testes UnitÃ¡rios. SugestÃ£o:
 	- JUnit/Arquillian
-- [ ] Persistência em Base de Dados (Está armazenando atualmente os valores em memória). Sugestões:
+- [ ] PersistÃªncia em Base de Dados (EstÃ¡ armazenando atualmente os valores em memÃ³ria). SugestÃµes:
 	- JPA + Hibernate
-	- Ibatis
-- [ ] Autenticação de Usuário (Está utilizando usuário fake "Administrador").
-- [ ] Implementação de Perfis de Usuário.
-- [ ] Persistênia da senha do usuário com segurança (hash + salt).
-- [ ] Internacionalização e properties para strings.
+	- Mybatis
+- [ ] AutenticaÃ§Ã£o de UsuÃ¡rio (EstÃ¡ utilizando usuÃ¡rio fake "Administrador").
+- [ ] ImplementaÃ§Ã£o de Perfis de UsuÃ¡rio.
+- [ ] PersistÃªnia da senha do usuÃ¡rio com seguranÃ§a (hash + salt).
+- [ ] InternacionalizaÃ§Ã£o e properties para strings.
 - [ ] Tratamento de Erros.
-- [ ] Tratamento de Regras de Negócio. Exemplo:
-	- Exclusão de Restaurantes que estão sendo utilizados em Votações.
-	- Exclusão de Votações que possuem Votos.
-	- Alteração da data de uma Votação que já possui Votos.
+- [ ] Tratamento de Regras de NegÃ³cio. Exemplo:
+	- ExclusÃ£o de Restaurantes que estÃ£o sendo utilizados em VotaÃ§Ãµes.
+	- ExclusÃ£o de VotaÃ§Ãµes que possuem Votos.
+	- AlteraÃ§Ã£o da data de uma VotaÃ§Ã£o que jÃ¡ possui Votos.
 	- etc...
-- [ ] Organização do CSS.
-
-**Screenshots:**
-
-*Votações*
-![Votacoes](https://github.com/dposs/Faminto.com/blob/development/assets/votacoes.png)
-
-*Restaurantes*
-![Restaurantes](https://github.com/dposs/Faminto.com/blob/development/assets/restaurantes.png)
-
-*Usuários*
-![Usuarios](https://github.com/dposs/Faminto.com/blob/development/assets/usuarios.png)
+- [ ] OrganizaÃ§Ã£o do CSS.

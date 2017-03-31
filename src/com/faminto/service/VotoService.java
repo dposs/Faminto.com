@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import com.faminto.dao.VotoDao;
 import com.faminto.model.Usuario;
@@ -21,10 +25,19 @@ public class VotoService implements Serializable {
 	
 	private static final long serialVersionUID = 8331502170988451085L;
 	
-	@ManagedProperty("#{votoDao}")
+	private static Validator validator;
+	
 	private VotoDao votoDao;
 	
-	public void create(Voto voto) {
+	public VotoService() {
+		votoDao = new VotoDao();
+		
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+	}
+	
+	public void create(Voto voto) throws IllegalArgumentException {
+		validate(voto);
 		voto.setId(getNextId());
 		votoDao.insert(voto);
 	}
@@ -36,6 +49,14 @@ public class VotoService implements Serializable {
 	public void delete(List<Voto> votos) {
 		for (Voto voto : votos) {
 			votoDao.delete(voto);
+		}
+	}
+	
+	public void validate(Voto voto) throws IllegalArgumentException {
+		Set<ConstraintViolation<Voto>> constraintViolations = validator.validate(voto);
+		
+		if (!constraintViolations.isEmpty()) {
+			throw new IllegalArgumentException(constraintViolations.iterator().next().getMessage());
 		}
 	}
 	
@@ -72,10 +93,6 @@ public class VotoService implements Serializable {
 			}
 		}
 		return null;
-	}
-	
-	public void setVotoDao(VotoDao votoDao) {
-		this.votoDao = votoDao;
 	}
 	
 	private int getNextId() {

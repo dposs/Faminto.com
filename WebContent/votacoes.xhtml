@@ -7,6 +7,8 @@
 	
 	<ui:composition>
 	
+		<h:messages globalOnly="true" />
+		
 		<script type="text/javascript">
 			function showDialog(dialogName) {
 				PrimeFaces.widgets[dialogName].show();
@@ -76,18 +78,21 @@
 		    	<p:panel id="panelVoto" header="#{votacaoController.getVotoAction() == 'CREATE' ? 'Votar' : 'Editar Voto'}">
 			        <h:panelGrid columns="2" cellpadding="5">
 		    			<h:outputLabel for="restaurante" value="Restaurante:" />
-		    			<p:selectOneMenu id="restaurante" value="#{votacaoController.voto.restaurante}" converter="#{restauranteConverter}" filter="true" filterMatchMode="contains" style="width:125px">
-		    				<f:selectItem itemLabel="Selecione" itemValue="" />
+		    			<p:selectOneMenu id="restaurante" value="#{votacaoController.voto.restaurante}" converter="#{restauranteConverter}" required="true" filter="true" filterMatchMode="contains" style="width: 165px">
+		    				<f:selectItem itemLabel="(Selecione)" itemValue="#{null}" noSelectionOption="true" />
 				            <f:selectItems value="#{votacaoController.restaurantes}" var="r" itemLabel="#{r.nome}" itemValue="#{r}"/>
 				        </p:selectOneMenu>
 			        </h:panelGrid>
+			        <p:message for="restaurante" style="margin-bottom: 7px;"/>
 			        <div style="text-align: right; margin-top: 5px">
-				    	<p:commandButton value="Salvar" type="submit" icon="ui-icon-check" action="#{votacaoController.saveVoto()}" update="frmVotacoes:dtVotacoes" onclick="hideDialog('dlgVoto');"/>
+				    	<p:commandButton value="Salvar" type="submit" icon="ui-icon-check" action="#{votacaoController.saveVoto()}" update="frmVotacoes:dtVotacoes @form" oncomplete="if (!args.validationFailed) hideDialog('dlgVoto');"/>
 				    	<p:commandButton value="Fechar" type="button" icon="ui-icon-closethick" onclick="hideDialog('dlgVoto');"/>
 			    	</div>
 			    </p:panel>
 		    </h:form>
 		</p:dialog>
+		
+		<p:ajaxExceptionHandler type="java.lang.IllegalArgumentException" onexception="alert('testee')" />
 	
 		<h:form id="frmVotacoes">
 			<p:dataTable id="dtVotacoes" 
@@ -113,8 +118,8 @@
 			    <p:column headerText="Realizador" style="text-align: left; border-left-width: 0px; border-right-width: 0px">
 					<h:outputText value="#{votacao.realizador.nome}" />
 			    </p:column>
-			    <p:column width="275" style="text-align: center; border-left-width: 0px">
-					<p:commandButton value="Votar" type="submit" icon="ui-icon-comment" onclick="showDialog('dlgVoto')" update="frmVoto" style="margin-right: 5px;">
+			    <p:column width="275" style="text-align: right; border-left-width: 0px">
+					<p:commandButton value="Votar" type="submit" icon="ui-icon-comment" onclick="showDialog('dlgVoto')" update="frmVoto" style="margin-right: 5px;" rendered="#{votacaoController.isVotacaoAberta(votacao)}">
 						<f:actionListener binding="#{votacaoController.setVotacao(votacao)}"/>
 						<f:actionListener binding="#{votacaoController.setVoto()}"/>
 					</p:commandButton>

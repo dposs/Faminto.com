@@ -6,10 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 
 import com.faminto.dao.UsuarioDao;
 import com.faminto.model.Usuario;
@@ -22,11 +20,10 @@ public class UsuarioService implements Serializable {
 
 	private Usuario usuarioLogado;
 	
-	@ManagedProperty("#{usuarioDao}")
 	private UsuarioDao usuarioDao;
 	
-	@PostConstruct
-	public void init() {
+	public UsuarioService() {
+		usuarioDao = new UsuarioDao();
 		usuarioLogado = usuarioDao.select("admin");
 	}
 	
@@ -47,10 +44,6 @@ public class UsuarioService implements Serializable {
 	
 	public List<Usuario> findAll() {
 		return usuarioDao.select();
-	}
-	
-	public void setUsuarioDao(UsuarioDao usuarioDao) {
-		this.usuarioDao = usuarioDao;
 	}
 	
 	public Usuario getUsuarioLogado() {

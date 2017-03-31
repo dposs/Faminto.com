@@ -3,12 +3,9 @@ package com.faminto.controller;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -57,9 +54,11 @@ public class VotacaoController implements Serializable {
 	public void init() {
 		votacao = new Votacao();
 		voto = new Voto();
+		
 		votacoes = votacaoService.findAll();
-		selectedVotacoes = new ArrayList<Votacao>();
 		restaurantes = restauranteService.findAll();
+		
+		selectedVotacoes = new ArrayList<Votacao>();
 	}
 
 	public ActionEnum getAction() {
@@ -79,18 +78,18 @@ public class VotacaoController implements Serializable {
 	}
 	
 	public void mountVotacao() {
-		votacao = new Votacao();
-		votacao.setData(new Date());
-		votacao.setRealizador(usuarioService.getUsuarioLogado());
+		votacao = votacaoService.mount();
 	}
 	
 	public void saveVotacao() {
 		switch (getVotacaoAction()) {
 		case CREATE:
 			votacaoService.create(votacao);
+			Collections.sort(votacoes);
 			break;
 		case UPDATE:
 			votacaoService.update(votacao);
+			Collections.sort(votacoes);
 			break;
 		default:
 			throw new InvalidParameterException();
@@ -128,19 +127,7 @@ public class VotacaoController implements Serializable {
 	}
 	
 	public List<Map.Entry<Restaurante, Long>> getResultado() {
-		List<Voto> votos = votoService.find(votacao);
-		
-		Map<Restaurante, Long> votosGrouped = votos.stream().collect(
-			Collectors.groupingBy(Voto::getRestaurante, Collectors.counting())
-		);
-		
-		return (ArrayList<Map.Entry<Restaurante, Long>>) votosGrouped.entrySet().stream().sorted(
-				new Comparator<Map.Entry<Restaurante, Long>>() {
-					@Override
-					public int compare(Entry<Restaurante, Long> e1, Entry<Restaurante, Long> e2) {
-						return e2.getValue().compareTo(e1.getValue());
-					}
-				}).collect(Collectors.toList());
+		return votacaoService.getResultado(votacao);
 	}
 	
 	public List<Votacao> getVotacoes() {
@@ -153,6 +140,10 @@ public class VotacaoController implements Serializable {
 
 	public List<Votacao> getSelectedVotacoes() {
 		return selectedVotacoes;
+	}
+	
+	public boolean isVotacaoAberta(Votacao votacao) {
+		return votacaoService.isVotacaoAberta(votacao);
 	}
 
 	public void setSelectedVotacoes(List<Votacao> selectedVotacoes) {
