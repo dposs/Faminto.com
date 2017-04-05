@@ -21,7 +21,7 @@ public class RestauranteDao implements Serializable {
 		restaurantes.add(new Restaurante(1, "Dom Filipo"));
 		restaurantes.add(new Restaurante(2, "Trattoria do Sabor"));
 		restaurantes.add(new Restaurante(3, "Botafogo"));
-		restaurantes.add(new Restaurante(4, "Sérgio Pizzas"));
+		restaurantes.add(new Restaurante(4, "Sergio Pizzas"));
 		restaurantes.add(new Restaurante(5, "Sappore"));
 		restaurantes.add(new Restaurante(6, "Vanguarda"));
 		restaurantes.add(new Restaurante(7, "Domenico"));
@@ -31,7 +31,7 @@ public class RestauranteDao implements Serializable {
 		restaurantes.add(new Restaurante(11, "Andrea"));
 		restaurantes.add(new Restaurante(12, "Churrascaria Imperador"));
 		restaurantes.add(new Restaurante(13, "Famiglia Gelain"));
-		restaurantes.add(new Restaurante(14, "Château Lacave"));
+		restaurantes.add(new Restaurante(14, "Chateau Lacave"));
 		restaurantes.add(new Restaurante(15, "Don Claudino"));
 		restaurantes.add(new Restaurante(16, "Puerto del Toro"));
 		restaurantes.add(new Restaurante(17, "Galeteria Alvorada"));
