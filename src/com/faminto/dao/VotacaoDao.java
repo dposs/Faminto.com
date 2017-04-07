@@ -34,7 +34,7 @@ public class VotacaoDao implements Serializable {
 	}
 	
 	public void update(Votacao votacao) {
-		votacoes.add(votacao);
+		votacoes.set(votacoes.indexOf(votacao), votacao);
 	}
 	
 	public void delete(Votacao votacao) {

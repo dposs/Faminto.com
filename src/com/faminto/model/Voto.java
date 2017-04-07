@@ -1,22 +1,27 @@
 package com.faminto.model;
 
-import java.io.Serializable;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.faminto.util.validator.CheckNotWeekWinner;
 
-@ManagedBean
-@ViewScoped
-public class Voto implements Serializable {
+@Entity
+public class Voto {
 
-	private static final long serialVersionUID = -686814190052307550L;
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@ManyToOne
 	private Votacao votacao;
+	
+	@ManyToOne
 	private Usuario usuario;
 	
+	@ManyToOne
 	@CheckNotWeekWinner
 	private Restaurante restaurante;
 

@@ -1,25 +1,30 @@
 package com.faminto.model;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-@ManagedBean
-@ViewScoped
-public class Votacao implements Serializable, Comparable<Votacao> {
+@Entity
+public class Votacao implements Comparable<Votacao> {
 
-	private static final long serialVersionUID = 1046918674287759585L;
-	
 	public static final LocalTime DEFAULT_TIME;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
+	
+	@ManyToOne
 	private Usuario realizador;
-	private List<Voto> votos;
 
 	static {
 		DEFAULT_TIME = LocalTime.of(12, 0, 0);
@@ -32,13 +37,6 @@ public class Votacao implements Serializable, Comparable<Votacao> {
 		this.id = id;
 		this.data = data;
 		this.realizador = realizador;
-	}
-	
-	public Votacao(Integer id, Date data, Usuario realizador, List<Voto> votos) {
-		this.id = id;
-		this.data = data;
-		this.realizador = realizador;
-		this.votos = votos;
 	}
 	
 	public Integer getId() {
@@ -65,14 +63,6 @@ public class Votacao implements Serializable, Comparable<Votacao> {
 		this.realizador = realizador;
 	}
 
-	public List<Voto> getVotos() {
-		return votos;
-	}
-
-	public void setVotos(List<Voto> votos) {
-		this.votos = votos;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		
