@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class DateUtils {
+public class DateUtil {
 
 	public static Date getDateWithTime(Date data, LocalTime time) {
 		LocalDateTime localDateTime = time.atDate(data.toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDate());

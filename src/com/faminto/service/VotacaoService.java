@@ -21,7 +21,7 @@ import com.faminto.dao.VotacaoDao;
 import com.faminto.model.Restaurante;
 import com.faminto.model.Votacao;
 import com.faminto.model.Voto;
-import com.faminto.util.date.DateUtils;
+import com.faminto.util.date.DateUtil;
 
 @ManagedBean
 @ApplicationScoped
@@ -41,12 +41,12 @@ public class VotacaoService implements Serializable {
 	
 	public void create(Votacao votacao) {
 		votacao.setId(getNextId());
-		votacao.setData(DateUtils.getDateWithTime(votacao.getData(), Votacao.DEFAULT_TIME));
+		votacao.setData(DateUtil.getDateWithTime(votacao.getData(), Votacao.DEFAULT_TIME));
 		votacaoDao.insert(votacao);
 	}
 	
 	public void update(Votacao votacao) {
-		votacao.setData(DateUtils.getDateWithTime(votacao.getData(), Votacao.DEFAULT_TIME));
+		votacao.setData(DateUtil.getDateWithTime(votacao.getData(), Votacao.DEFAULT_TIME));
 		votacaoDao.update(votacao);
 	}
 	
@@ -58,7 +58,7 @@ public class VotacaoService implements Serializable {
 	
 	public Votacao mount() {
 		Votacao votacao = new Votacao();
-		votacao.setData(DateUtils.getDateWithTime(new Date(), Votacao.DEFAULT_TIME));
+		votacao.setData(DateUtil.getDateWithTime(new Date(), Votacao.DEFAULT_TIME));
 		votacao.setRealizador(usuarioService.getUsuarioLogado());
 		
 		return votacao;
