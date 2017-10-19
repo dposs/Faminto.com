@@ -7,15 +7,15 @@ import java.util.List;
 import com.faminto.model.Restaurante;
 
 /**
- * Classe DAO FAKE.
+ * Classe DAO FAKE
  * Mantem valores em memoria.
  */
 public class RestauranteDao implements Serializable {
-	
+
 	private static final long serialVersionUID = -5482752818133399600L;
-	
+
 	private static List<Restaurante> restaurantes;
-	
+
 	static {
 		restaurantes = new ArrayList<Restaurante>();
 		restaurantes.add(new Restaurante(1, "Dom Filipo"));
@@ -42,11 +42,11 @@ public class RestauranteDao implements Serializable {
 		restaurantes.add(new Restaurante(22, "Granpiacer"));
 		restaurantes.add(new Restaurante(23, "Hamburgueria Jaime Rocha"));
 	}
-	
+
 	public void insert(Restaurante restaurante) {
 		restaurantes.add(restaurante);
 	}
-	
+
 	public void update(Restaurante restaurante) {
 		int index = restaurantes.indexOf(restaurante);
 		if (index == -1) {
@@ -54,15 +54,15 @@ public class RestauranteDao implements Serializable {
 		}
 		restaurantes.set(index, restaurante);
 	}
-	
+
 	public void delete(Restaurante restaurante) {
 		restaurantes.remove(restaurante);
 	}
-	
+
 	public List<Restaurante> select() {
 		return restaurantes;
 	}
-	
+
 	public Restaurante select(Integer id) {
 		for (Restaurante restaurante : restaurantes) {
 			if (restaurante.getId().equals(id)) {
